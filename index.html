@@ -8,12 +8,16 @@
 <style>
 /* ---------- animated gradient background ---------- */
 :root{
-  --c1:#007cf0;
+  --c1:#007cf0;  /* blue-cyan core */
   --c2:#00dfd8;
-  --c3:#f5af19;
-  --c4:#f12711;
+  --c3:#f5af19;  /* orange */
+  --c4:#f12711;  /* red-orange */
+  --c5:#ff66c4;  /* pink */
+  --c6:#845ec2;  /* violet */
+  --c7:#2c73d2;  /* royal blue */
+  --c8:#0081cf;  /* teal */
 }
-@keyframes gradient {
+@keyframes gradient{
   0%{background-position:0 50%}
   50%{background-position:100% 50%}
   100%{background-position:0 50%}
@@ -21,27 +25,26 @@
 body{
   margin:0;min-height:100vh;display:flex;justify-content:center;align-items:center;
   font-family:system-ui,Segoe UI,Helvetica,Arial,sans-serif;color:#fff;text-align:center;
-  background:linear-gradient(-45deg,var(--c1),var(--c2),var(--c3),var(--c4));
-  background-size:400% 400%;animation:gradient 15s ease infinite;
+  background:linear-gradient(-45deg,var(--c1),var(--c2),var(--c3),var(--c4),var(--c5),var(--c6),var(--c7),var(--c8));
+  background-size:600% 600%;animation:gradient 18s ease infinite;
   padding:2rem;
 }
 
 /* ---------- headline animation ---------- */
 @keyframes titleIn{
-  0%{opacity:0;letter-spacing:-.2em;transform:translateY(20px)}
+  0%  {opacity:0;letter-spacing:-.25em;transform:translateY(30px)}
   100%{opacity:1;letter-spacing:0;transform:translateY(0)}
 }
 h1{
   font-size:clamp(2.8rem,7vw,4.5rem);line-height:1.05;margin:.3em 0 0;
-  animation:titleIn 1.2s ease-out forwards;
+  animation:titleIn 2s cubic-bezier(.18,.89,.32,1.28) forwards;
 }
 h1 span{
   display:inline-block;background-clip:text;-webkit-background-clip:text;color:transparent;
   background-image:linear-gradient(90deg,#fff,rgba(255,255,255,.6));
 }
-p.tag{
-  font-size:clamp(1.15rem,3vw,1.5rem);margin:.8rem 0 2rem;opacity:.9;
-}
+
+p.tag{font-size:clamp(1.15rem,3vw,1.5rem);margin:.8rem 0 2rem;opacity:.9}
 
 /* ---------- loading bar ---------- */
 .bar{
@@ -52,9 +55,7 @@ p.tag{
   content:"";display:block;height:100%;width:0;background:#fff;
   animation:load 4s ease-in-out infinite;
 }
-@keyframes load{
-  0%{width:0}50%{width:100%}100%{width:0}
-}
+@keyframes load{0%{width:0}50%{width:100%}100%{width:0}}
 
 footer{font-size:.9rem;margin-top:2.4rem;opacity:.65}
 a{color:#fff;text-decoration:underline}
@@ -66,7 +67,7 @@ a{color:#fff;text-decoration:underline}
     <p class="tag">Grab-and-go ESL resources — always free, no log-ins, no paywalls.</p>
 
     <div class="bar"></div>
-    <p class="tag" style="margin-top:1.5rem">Knowledge is loading…</p>
+    <p class="tag" style="margin-top:1.5rem">We’ll be live soon…</p>
 
     <footer>© <span id="year"></span> The Open Shelf</footer>
   </main>
