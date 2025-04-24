@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>The Open Shelf – Coming Soon</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  /* --- full-screen animated background ---------------------------------- */
+  :root{
+    --c1:#007cf0;     /* adjust these four colours to taste */
+    --c2:#00dfd8;
+    --c3:#f5af19;
+    --c4:#f12711;
+  }
+  @keyframes gradient {
+    0%   {background-position: 0% 50%;}
+    50%  {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+  }
+  body{
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:system-ui,Segoe UI,Helvetica,Arial,sans-serif;
+    color:#fff;
+    background:linear-gradient(-45deg,var(--c1),var(--c2),var(--c3),var(--c4));
+    background-size:400% 400%;
+    animation:gradient 15s ease infinite;
+    text-align:center;
+    padding:2rem;
+  }
+  h1{
+    font-size:clamp(2.5rem,6vw,4rem);
+    line-height:1.1;
+    margin:0 0 1rem;
+    text-shadow:0 4px 20px rgba(0,0,0,.25);
+  }
+  p{
+    font-size:clamp(1.1rem,2.5vw,1.4rem);
+    margin:0 0 2.5rem;
+    opacity:.85;
+  }
+  /* --- fake progress bar -------------------------------------------------- */
+  .bar{
+    width:300px; max-width:80vw; height:8px; border-radius:4px;
+    background:rgba(255,255,255,.25); overflow:hidden;
+    margin-inline:auto;
+  }
+  .bar::before{
+    content:"";
+    display:block;
+    height:100%;
+    width:0;
+    background:#fff;
+    animation:load 4s ease-in-out infinite;
+  }
+  @keyframes load{
+    0%{width:0}
+    50%{width:100%}
+    100%{width:0}
+  }
+  a{color:#fff;text-decoration:underline;}
+</style>
+</head>
+<body>
+  <main>
+    <h1>Knowledge is loading…</h1>
+    <p>Teacher’s heaven under construction. <br/>
+       We’ll be live soon – stay tuned!</p>
+    <div class="bar"></div>
+    <p style="margin-top:2.5rem;font-size:0.9rem;opacity:.7">
+      © <span id="year"></span> The Open Shelf&nbsp;· All rights reserved
+    </p>
+  </main>
+<script>document.getElementById("year").textContent=new Date().getFullYear();</script>
+</body>
+</html>
