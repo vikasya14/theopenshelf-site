@@ -1,6 +1,6 @@
 /* ---------- animated gradient background ---------- */
 :root {
-    --c1: #007cf0;  /* blue-cyan core */
+    --c1: #007cf0;  /* blue-cyan */
     --c2: #00dfd8;
     --c3: #f5af19;  /* orange */
     --c4: #f12711;  /* red-orange */
@@ -20,7 +20,7 @@
     margin: 0;
     min-height: 100vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
     font-family: system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
     color: #fff;
@@ -31,39 +31,52 @@
     );
     background-size: 600% 600%;
     animation: gradient 18s ease infinite;
-    padding: 2rem;
+    padding-top: 4rem;  /* make room for fixed header */
   }
   
-  /* ---------- headline animation ---------- */
+  /* ---------- header & logo ---------- */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: rgba(0,0,0,0.5);
+    z-index: 10;
+  }
+  
+  .header-logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Wordmark SVG sizing */
+  .wordmark {
+    width: auto;
+    height: 32px;
+  }
+  @media (min-width: 640px) {
+    .wordmark { height: 44px; }
+  }
+  @media (min-width: 1024px) {
+    .wordmark { height: 56px; }
+  }
+  
+  /* hide text-only fallback on small */
+  .header-logo h1 { display: none; }
+  
+  /* ---------- headline animation (if any) */
   @keyframes titleIn {
     0%   { opacity: 0; letter-spacing: -0.25em; transform: translateY(30px); }
     100% { opacity: 1; letter-spacing: 0;     transform: translateY(0); }
   }
   
-  h1 {
-    font-size: clamp(2.8rem, 7vw, 4.5rem);
-    line-height: 1.05;
-    margin: 0.3em 0 0;
-    animation: titleIn 2s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
-  }
-  
-  /* ---------- logo layout ---------- */
-  .logo-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;          /* space between icon & text */
-    margin-bottom: 1.5rem;
-  }
-  
-  .logo-icon svg {
-    width: 24px;
-    height: 24px;
-    color: currentColor;
-  }
-  
-  .logo-container h1 {
-    margin: 0;
+  /* ---------- main content ---------- */
+  main {
+    margin-top: 2rem;
+    width: 100%;
+    max-width: 600px;
+    padding: 0 1rem;
   }
   
   /* ---------- tag lines ---------- */
@@ -72,7 +85,6 @@
     margin: 0.8rem 0;
     opacity: 0.9;
   }
-  
   .extra-tag {
     margin-top: 1.5rem;
   }
@@ -85,9 +97,8 @@
     border-radius: 4px;
     background: rgba(255, 255, 255, 0.25);
     overflow: hidden;
-    margin-inline: auto;
+    margin: 0.8rem auto;
   }
-  
   .bar::before {
     content: "";
     display: block;
@@ -96,7 +107,6 @@
     background: #fff;
     animation: load 4s ease-in-out infinite;
   }
-  
   @keyframes load {
     0%   { width: 0; }
     50%  { width: 100%; }
