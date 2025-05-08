@@ -5,8 +5,10 @@
 <title>The Open Shelf – Coming Soon</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+<!-- -----------------------------------------------------------------
+     ORIGINAL STYLES (unchanged – gradient, headline, loading bar …)
+------------------------------------------------------------------ -->
 <style>
-/* ---------- animated gradient background ---------- */
 :root{
   --c1:#007cf0;--c2:#00dfd8;--c3:#f5af19;--c4:#f12711;
   --c5:#ff66c4;--c6:#845ec2;--c7:#2c73d2;--c8:#0081cf;
@@ -19,14 +21,13 @@ body{
   background-size:600% 600%;animation:gradient 18s ease infinite;
   padding:2rem;
 }
-/* ---------- headline animation ---------- */
+
 @keyframes titleIn{0%{opacity:0;letter-spacing:-.25em;transform:translateY(30px)}100%{opacity:1;letter-spacing:0;transform:none}}
 h1{font-size:clamp(2.8rem,7vw,4.5rem);line-height:1.05;margin:.3em 0 0;animation:titleIn 2s cubic-bezier(.18,.89,.32,1.28) forwards}
 h1 span{display:inline-block;background-clip:text;-webkit-background-clip:text;color:transparent;background-image:linear-gradient(90deg,#fff,rgba(255,255,255,.6))}
 
 p.tag{font-size:clamp(1.15rem,3vw,1.5rem);margin:.8rem 0 2rem;opacity:.9}
 
-/* ---------- loading bar ---------- */
 .bar{width:280px;max-width:80vw;height:8px;border-radius:4px;background:rgba(255,255,255,.25);overflow:hidden;margin-inline:auto}
 .bar::before{content:"";display:block;height:100%;width:0;background:#fff;animation:load 4s ease-in-out infinite}
 @keyframes load{0%{width:0}50%{width:100%}100%{width:0}}
@@ -34,26 +35,23 @@ p.tag{font-size:clamp(1.15rem,3vw,1.5rem);margin:.8rem 0 2rem;opacity:.9}
 footer{font-size:.9rem;margin-top:2.4rem;opacity:.65}
 a{color:#fff;text-decoration:underline}
 
-/* =====================================================
-   EXTRA RULES for clickable logo & reveal animation
-   ===================================================== */
+/* -----------------------------------------------------------------
+   EXTRA RULES – logo placement + click-to-reveal animation
+------------------------------------------------------------------ */
 #logo-top{
-  position:fixed;top:20px;left:20px;
-  width:150px;cursor:pointer;z-index:10;
-  color:#fff;             /* makes SVG paths white (uses currentColor) */
+  position:fixed;top:20px;left:20px;width:150px;
+  cursor:pointer;z-index:10;color:#fff;      /* SVG inherits this   */
 }
 #logo-top svg{width:100%;height:auto;display:block;fill:currentColor}
 
-/* centre copy of the logo */
 #logo-centre{margin:0 auto;width:min(90vw,700px)}
 #logo-centre svg{width:100%;height:auto;display:block;fill:#fff}
 
-/* click-to-reveal animation ------------------------- */
+/* reveal one glyph at a time */
 @keyframes letterIn{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
 #logo-top .letter{opacity:1;transition:opacity .2s}
-#logo-top.animate .letter{opacity:0}                 /* hide all first */
+#logo-top.animate .letter{opacity:0}                 /* hide first   */
 #logo-top.animate .letter{animation:letterIn .4s forwards}
-/* delay for each letter (12 glyphs in your SVG) */
 #logo-top.animate .letter:nth-child(1){animation-delay:.15s}
 #logo-top.animate .letter:nth-child(2){animation-delay:.30s}
 #logo-top.animate .letter:nth-child(3){animation-delay:.45s}
@@ -71,58 +69,69 @@ a{color:#fff;text-decoration:underline}
 
 <body>
 
-  <!-- ▾ TOP-LEFT CLICKABLE LOGO ▾ -->
-  <a id="logo-top" href="#" aria-label="Animate logo">
-    <!-- ↓↓↓ RAW SVG (ONE-LINE)  — *unchanged from Canva* ↓↓↓ -->
-    <!--  Tiny tweak: changed `fill="#000"` to `fill="currentColor"` on <path>s
-          so the CSS colour (#fff) controls both copies.                -->
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 299.25 69" role="img" aria-label="The Open Shelf logo">
-      <!-- each <g> already lines up with a glyph, so we’ll animate them -->
-      <g class="letter"><path fill="currentColor" d="M0 24.3h7v44.4h-7z"/></g>
-      <g class="letter"><path fill="currentColor" d="M0 0h15.5v3.8H0z"/></g>
-      <g class="letter"><path fill="currentColor" d="M14.7 0h4.2v18.3h-4.2z"/></g>
-      <g class="letter"><path fill="currentColor" d="M16.9 7.1h18.2v4.2H16.9z"/></g>
-      <g class="letter"><path fill="currentColor" d="M23.9 0h4.2v18.3h-4.2z"/></g>
-      <g class="letter"><path fill="currentColor" d="M26 13.9h10.2v4.4H26z"/></g>
-      <g class="letter"><path fill="currentColor" d="M26 0h10.2v4.5H26z"/></g>
-      <!-- OP EN SHELF rectangles – trimmed for brevity -->
-      <!-- … the rest of the paths from your SVG … -->
+<!-- ===============================================================
+     1.  Top-left clickable logo  (each letter lives in its own <g>)
+================================================================ -->
+<a id="logo-top" href="#" aria-label="Animate logo">
+  <svg viewBox="0 0 360 75" role="img" aria-label="The Open Shelf logo">
+    <g class="letter"><text x="0"   y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">T</text></g>
+    <g class="letter"><text x="30"  y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">H</text></g>
+    <g class="letter"><text x="70"  y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">E</text></g>
+    <g class="letter"><text x="110" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">O</text></g>
+    <g class="letter"><text x="150" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">P</text></g>
+    <g class="letter"><text x="190" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">E</text></g>
+    <g class="letter"><text x="230" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">N</text></g>
+    <g class="letter"><text x="280" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">S</text></g>
+    <g class="letter"><text x="320" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">H</text></g>
+    <g class="letter"><text x="360" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">E</text></g>
+    <g class="letter"><text x="400" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">L</text></g>
+    <g class="letter"><text x="430" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">F</text></g>
+  </svg>
+</a>
+
+<main>
+
+  <!-- =============================================================
+       2.  Big centred copy of the logo (static)
+  =============================================================== -->
+  <div id="logo-centre">
+    <svg viewBox="0 0 360 75" role="img" aria-label="The Open Shelf logo">
+      <!-- same letters, no classes needed -->
+      <text x="0"   y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">T</text>
+      <text x="30"  y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">H</text>
+      <text x="70"  y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">E</text>
+      <text x="110" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">O</text>
+      <text x="150" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">P</text>
+      <text x="190" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">E</text>
+      <text x="230" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">N</text>
+      <text x="280" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">S</text>
+      <text x="320" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">H</text>
+      <text x="360" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">E</text>
+      <text x="400" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">L</text>
+      <text x="430" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">F</text>
     </svg>
-  </a>
+  </div>
 
-  <main>
-    <!-- large centre copy (SVG again) -->
-    <div id="logo-centre">
-      <!-- simply clone the SVG above -->
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 299.25 69" role="img" aria-label="The Open Shelf logo">
-        <!-- same paths as above, no classes needed -->
-        <!-- … SVG content … -->
-      </svg>
-    </div>
+  <p class="tag">Grab-and-go ESL resources — always free, no log-ins, no paywalls.</p>
 
-    <p class="tag">Grab-and-go ESL resources — always free, no log-ins, no paywalls.</p>
-    <div class="bar"></div>
-    <p class="tag" style="margin-top:1.5rem">We’ll be live soon…</p>
+  <div class="bar"></div>
+  <p class="tag" style="margin-top:1.5rem">We’ll be live soon…</p>
 
-    <footer>© <span id="year"></span> The Open Shelf</footer>
-  </main>
+  <footer>© <span id="year"></span> The Open Shelf</footer>
+</main>
 
+<!-- -----------------------------------------------------------------
+     Tiny bit of JS – restart the letter animation on every click
+------------------------------------------------------------------ -->
 <script>
-/* year in footer */
 document.getElementById('year').textContent = new Date().getFullYear();
 
-/* logo letter animation */
 const logoTop = document.getElementById('logo-top');
-
-/* give every <g> a .letter class (already done above) */
-logoTop.querySelectorAll('g').forEach(g => g.classList.add('letter'));
-
-/* click → hide, then show letters one-by-one */
 logoTop.addEventListener('click', e => {
   e.preventDefault();
-  logoTop.classList.remove('animate');      // reset
-  void logoTop.offsetWidth;                 // reflow trick
-  logoTop.classList.add('animate');         // play
+  logoTop.classList.remove('animate');   // reset
+  void logoTop.offsetWidth;              // force reflow
+  logoTop.classList.add('animate');      // play
 });
 </script>
 </body>
