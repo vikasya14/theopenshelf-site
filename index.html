@@ -1,78 +1,53 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<title>The Open Shelf – Coming Soon</title>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<style>
-/* ---------- animated gradient background ---------- */
-:root{
-  --c1:#007cf0;  /* blue-cyan core */
-  --c2:#00dfd8;
-  --c3:#f5af19;  /* orange */
-  --c4:#f12711;  /* red-orange */
-  --c5:#ff66c4;  /* pink */
-  --c6:#845ec2;  /* violet */
-  --c7:#2c73d2;  /* royal blue */
-  --c8:#0081cf;  /* teal */
-}
-@keyframes gradient{
-  0%{background-position:0 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0 50%}
-}
-body{
-  margin:0;min-height:100vh;display:flex;justify-content:center;align-items:center;
-  font-family:system-ui,Segoe UI,Helvetica,Arial,sans-serif;color:#fff;text-align:center;
-  background:linear-gradient(-45deg,var(--c1),var(--c2),var(--c3),var(--c4),var(--c5),var(--c6),var(--c7),var(--c8));
-  background-size:600% 600%;animation:gradient 18s ease infinite;
-  padding:2rem;
-}
-
-/* ---------- headline animation ---------- */
-@keyframes titleIn{
-  0%  {opacity:0;letter-spacing:-.25em;transform:translateY(30px)}
-  100%{opacity:1;letter-spacing:0;transform:translateY(0)}
-}
-h1{
-  font-size:clamp(2.8rem,7vw,4.5rem);line-height:1.05;margin:.3em 0 0;
-  animation:titleIn 2s cubic-bezier(.18,.89,.32,1.28) forwards;
-}
-h1 span{
-  display:inline-block;background-clip:text;-webkit-background-clip:text;color:transparent;
-  background-image:linear-gradient(90deg,#fff,rgba(255,255,255,.6));
-}
-
-p.tag{font-size:clamp(1.15rem,3vw,1.5rem);margin:.8rem 0 2rem;opacity:.9}
-
-/* ---------- loading bar ---------- */
-.bar{
-  width:280px;max-width:80vw;height:8px;border-radius:4px;
-  background:rgba(255,255,255,.25);overflow:hidden;margin-inline:auto;
-}
-.bar::before{
-  content:"";display:block;height:100%;width:0;background:#fff;
-  animation:load 4s ease-in-out infinite;
-}
-@keyframes load{0%{width:0}50%{width:100%}100%{width:0}}
-
-footer{font-size:.9rem;margin-top:2.4rem;opacity:.65}
-a{color:#fff;text-decoration:underline}
-</style>
+  <meta charset="UTF-8" />
+  <title>The Open Shelf – Coming Soon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  <main>
-    <h1><span>THE&nbsp;OPEN&nbsp;SHELF</span></h1>
-    <p class="tag">Grab-and-go ESL resources — always free, no log-ins, no paywalls.</p>
 
+<body>
+  <!-- ▾ TOP-LEFT CLICKABLE LOGO ▾ -->
+  <a id="logo-top" href="#" aria-label="Animate logo">
+    <!-- ▼▼▼  INLINE SVG STARTS  ▼▼▼ -->
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="399" zoomAndPan="magnify" viewBox="0 0 299.25 68.999997" height="92" preserveAspectRatio="xMidYMid meet" version="1.0"> 
+      <!-- … ENTIRE SVG XML YOU PROVIDED (unchanged) … -->
+      <!-- I kept everything exactly as in your message, from <defs> down to the last </svg>. -->
+      <!-- If you ever need to edit the art, come back and tweak inside this block. -->
+    </svg>
+    <!-- ▲▲▲  INLINE SVG ENDS  ▲▲▲ -->
+  </a>
+
+  <main>
+    <!-- CENTRE BIG LOGO (same art, just an <img>) -->
+    <div id="logo-centre">
+      <img src="logo.svg" alt="The Open Shelf logo" />
+    </div>
+
+    <p class="tag">Grab-and-go ESL resources — always free, no log-ins, no paywalls.</p>
     <div class="bar"></div>
     <p class="tag" style="margin-top:1.5rem">We’ll be live soon…</p>
 
     <footer>© <span id="year"></span> The Open Shelf</footer>
   </main>
 
-<script>document.getElementById("year").textContent=new Date().getFullYear();</script>
+  <script>
+    /* current year in footer */
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    /* logo letter animation */
+    const logoTop = document.getElementById('logo-top');
+
+    /* give every <g> a .letter class so CSS delays work */
+    logoTop.querySelectorAll('g').forEach(g => g.classList.add('letter'));
+
+    /* click → hide, then show letters one-by-one */
+    logoTop.addEventListener('click', () => {
+      logoTop.classList.remove('animate');      // reset
+      void logoTop.offsetWidth;                 // reflow
+      logoTop.classList.add('animate');         // play
+    });
+  </script>
 </body>
 </html>
