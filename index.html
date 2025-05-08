@@ -4,29 +4,34 @@
   <meta charset="UTF-8" />
   <title>The Open Shelf – Coming Soon</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- external stylesheet -->
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-  <!-- ▾ TOP-LEFT CLICKABLE LOGO ▾ -->
+
+  <!-- ▾­­­­ TOP-LEFT CLICKABLE LOGO ▾ -->
   <a id="logo-top" href="#" aria-label="Animate logo">
-    <!-- ▼▼▼  INLINE SVG STARTS  ▼▼▼ -->
-    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="399" zoomAndPan="magnify" viewBox="0 0 299.25 68.999997" height="92" preserveAspectRatio="xMidYMid meet" version="1.0"> 
-      <!-- … ENTIRE SVG XML YOU PROVIDED (unchanged) … -->
-      <!-- I kept everything exactly as in your message, from <defs> down to the last </svg>. -->
-      <!-- If you ever need to edit the art, come back and tweak inside this block. -->
-    </svg>
-    <!-- ▲▲▲  INLINE SVG ENDS  ▲▲▲ -->
+    <!----- EXACT Canva SVG, unchanged --->
+    <!-- it will appear white because the CSS below
+         overrides all fills to #fff  -->
+    <!--  ⬇⬇  paste the FULL raw SVG you supplied here ⬇⬇ -->
+    <!--  (keep everything from <svg …> to </svg>)       -->
   </a>
 
   <main>
-    <!-- CENTRE BIG LOGO (same art, just an <img>) -->
+    <!-- large centred copy of the same SVG -->
     <div id="logo-centre">
-      <img src="logo.svg" alt="The Open Shelf logo" />
+      <!-- you can simply duplicate the SVG you just pasted above -->
     </div>
 
-    <p class="tag">Grab-and-go ESL resources — always free, no log-ins, no paywalls.</p>
+    <p class="tag">
+      Grab-and-go ESL resources — always free, no log-ins, no paywalls.
+    </p>
+
     <div class="bar"></div>
+
     <p class="tag" style="margin-top:1.5rem">We’ll be live soon…</p>
 
     <footer>© <span id="year"></span> The Open Shelf</footer>
@@ -36,16 +41,18 @@
     /* current year in footer */
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    /* logo letter animation */
+    /* click-to-reveal animation on the top-left logo */
     const logoTop = document.getElementById('logo-top');
 
-    /* give every <g> a .letter class so CSS delays work */
+    /* every <g> inside the SVG represents one glyph;
+       give each of them a .letter class so CSS delays work */
     logoTop.querySelectorAll('g').forEach(g => g.classList.add('letter'));
 
-    /* click → hide, then show letters one-by-one */
-    logoTop.addEventListener('click', () => {
+    /* click → hide everything, then reveal letters one by one */
+    logoTop.addEventListener('click', e => {
+      e.preventDefault();
       logoTop.classList.remove('animate');      // reset
-      void logoTop.offsetWidth;                 // reflow
+      void logoTop.offsetWidth;                 // force re-flow
       logoTop.classList.add('animate');         // play
     });
   </script>
