@@ -1,138 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<title>The Open Shelf – Coming Soon</title>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Open Shelf — coming soon</title>
 
-<!-- -----------------------------------------------------------------
-     ORIGINAL STYLES (unchanged – gradient, headline, loading bar …)
------------------------------------------------------------------- -->
 <style>
-:root{
-  --c1:#007cf0;--c2:#00dfd8;--c3:#f5af19;--c4:#f12711;
-  --c5:#ff66c4;--c6:#845ec2;--c7:#2c73d2;--c8:#0081cf;
-}
-@keyframes gradient{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
+/* ==========  PAGE BASE  ============================================== */
+*,*::before,*::after{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:-apple-system,BlinkMacSystemFont,
+ "Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;color:#fff}
+
 body{
-  margin:0;min-height:100vh;display:flex;justify-content:center;align-items:center;
-  font-family:system-ui,Segoe UI,Helvetica,Arial,sans-serif;color:#fff;text-align:center;
-  background:linear-gradient(-45deg,var(--c1),var(--c2),var(--c3),var(--c4),var(--c5),var(--c6),var(--c7),var(--c8));
-  background-size:600% 600%;animation:gradient 18s ease infinite;
-  padding:2rem;
+ /* orange-to-green diagonal gradient */
+ background:linear-gradient(130deg,#e98a37 0%,#e0b83d 50%,#8cd18b 100%);
+ display:flex;flex-direction:column
 }
 
-@keyframes titleIn{0%{opacity:0;letter-spacing:-.25em;transform:translateY(30px)}100%{opacity:1;letter-spacing:0;transform:none}}
-h1{font-size:clamp(2.8rem,7vw,4.5rem);line-height:1.05;margin:.3em 0 0;animation:titleIn 2s cubic-bezier(.18,.89,.32,1.28) forwards}
-h1 span{display:inline-block;background-clip:text;-webkit-background-clip:text;color:transparent;background-image:linear-gradient(90deg,#fff,rgba(255,255,255,.6))}
+/* ==========  HEADER  ================================================== */
+header{position:absolute;top:0;left:0;padding:2rem 1.5rem}
 
-p.tag{font-size:clamp(1.15rem,3vw,1.5rem);margin:.8rem 0 2rem;opacity:.9}
+/* small clickable logo (reveals full width on click) */
+.logo--small{width:150px;overflow:hidden;cursor:pointer;transition:width .6s ease}
+.logo--small.reveal{width:300px}
 
-.bar{width:280px;max-width:80vw;height:8px;border-radius:4px;background:rgba(255,255,255,.25);overflow:hidden;margin-inline:auto}
-.bar::before{content:"";display:block;height:100%;width:0;background:#fff;animation:load 4s ease-in-out infinite}
-@keyframes load{0%{width:0}50%{width:100%}100%{width:0}}
+/* ==========  HERO  ==================================================== */
+main{margin:auto;text-align:center;padding:0 1rem;max-width:900px}
+.logo--hero{width:100%;max-width:720px;height:auto;display:block;margin:0 auto}
 
-footer{font-size:.9rem;margin-top:2.4rem;opacity:.65}
-a{color:#fff;text-decoration:underline}
+.tagline{font-size:1.25rem;margin:1.5rem 0 2.25rem;line-height:1.4}
+.coming-soon{font-size:1.15rem;margin-top:1.5rem}
 
-/* -----------------------------------------------------------------
-   EXTRA RULES – logo placement + click-to-reveal animation
------------------------------------------------------------------- */
-#logo-top{
-  position:fixed;top:20px;left:20px;width:150px;
-  cursor:pointer;z-index:10;color:#fff;      /* SVG inherits this   */
-}
-#logo-top svg{width:100%;height:auto;display:block;fill:currentColor}
+/* ==========  LOADING BAR  ============================================ */
+.loader{width:220px;height:6px;margin:0 auto;border-radius:4px;
+        background:rgba(255,255,255,.35);overflow:hidden}
+.loader span{display:block;width:50%;height:100%;background:#fff;
+             animation:load 2s linear infinite}
+@keyframes load{from{transform:translateX(-100%)}to{transform:translateX(200%)}}
 
-#logo-centre{margin:0 auto;width:min(90vw,700px)}
-#logo-centre svg{width:100%;height:auto;display:block;fill:#fff}
+/* ==========  FOOTER  ================================================== */
+footer{margin:3.5rem 0 1.5rem;text-align:center;font-size:.9rem;opacity:.8}
 
-/* reveal one glyph at a time */
-@keyframes letterIn{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
-#logo-top .letter{opacity:1;transition:opacity .2s}
-#logo-top.animate .letter{opacity:0}                 /* hide first   */
-#logo-top.animate .letter{animation:letterIn .4s forwards}
-#logo-top.animate .letter:nth-child(1){animation-delay:.15s}
-#logo-top.animate .letter:nth-child(2){animation-delay:.30s}
-#logo-top.animate .letter:nth-child(3){animation-delay:.45s}
-#logo-top.animate .letter:nth-child(4){animation-delay:.60s}
-#logo-top.animate .letter:nth-child(5){animation-delay:.75s}
-#logo-top.animate .letter:nth-child(6){animation-delay:.90s}
-#logo-top.animate .letter:nth-child(7){animation-delay:1.05s}
-#logo-top.animate .letter:nth-child(8){animation-delay:1.20s}
-#logo-top.animate .letter:nth-child(9){animation-delay:1.35s}
-#logo-top.animate .letter:nth-child(10){animation-delay:1.50s}
-#logo-top.animate .letter:nth-child(11){animation-delay:1.65s}
-#logo-top.animate .letter:nth-child(12){animation-delay:1.80s}
+/* ==========  MAKE THE SVG WHITE  ===================================== */
+/* presentation attributes inside the SVG set fill to black, so we flip
+   the whole graphic to pure white with CSS filters (no need to edit the XML) */
+svg.logo{filter:brightness(0) invert(1)}
 </style>
 </head>
 
 <body>
+<!-- ░░░ HEADER ░░░ -->
+<header>
+  <a id="logo-trigger" href="#" aria-label="Reveal full logo">
+    <!-- SMALL WORD-MARK -->
+    <div class="logo logo--small">
+      <!-- ▼▼▼ YOUR FULL SVG (unchanged) ▼▼▼ -->
+      <!--  ↓  paste begins  ↓ -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="399" zoomAndPan="magnify" viewBox="0 0 299.25 68.999997" height="92" preserveAspectRatio="xMidYMid meet" version="1.0">
+<!-- …the entire SVG code you provided… (unchanged) … -->
+</svg>
+      <!--  ↑  paste ends    ↑ -->
+    </div>
+  </a>
+</header>
 
-<!-- ===============================================================
-     1.  Top-left clickable logo  (each letter lives in its own <g>)
-================================================================ -->
-<a id="logo-top" href="#" aria-label="Animate logo">
-  <svg viewBox="0 0 360 75" role="img" aria-label="The Open Shelf logo">
-    <g class="letter"><text x="0"   y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">T</text></g>
-    <g class="letter"><text x="30"  y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">H</text></g>
-    <g class="letter"><text x="70"  y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">E</text></g>
-    <g class="letter"><text x="110" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">O</text></g>
-    <g class="letter"><text x="150" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">P</text></g>
-    <g class="letter"><text x="190" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">E</text></g>
-    <g class="letter"><text x="230" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">N</text></g>
-    <g class="letter"><text x="280" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">S</text></g>
-    <g class="letter"><text x="320" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">H</text></g>
-    <g class="letter"><text x="360" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">E</text></g>
-    <g class="letter"><text x="400" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">L</text></g>
-    <g class="letter"><text x="430" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">F</text></g>
-  </svg>
-</a>
-
+<!-- ░░░ HERO SECTION ░░░ -->
 <main>
-
-  <!-- =============================================================
-       2.  Big centred copy of the logo (static)
-  =============================================================== -->
-  <div id="logo-centre">
-    <svg viewBox="0 0 360 75" role="img" aria-label="The Open Shelf logo">
-      <!-- same letters, no classes needed -->
-      <text x="0"   y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">T</text>
-      <text x="30"  y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">H</text>
-      <text x="70"  y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">E</text>
-      <text x="110" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">O</text>
-      <text x="150" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">P</text>
-      <text x="190" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">E</text>
-      <text x="230" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">N</text>
-      <text x="280" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">S</text>
-      <text x="320" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">H</text>
-      <text x="360" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">E</text>
-      <text x="400" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">L</text>
-      <text x="430" y="60" font-size="62" font-family="Inter, sans-serif" font-weight="700">F</text>
-    </svg>
+  <!-- LARGE CENTREPIECE LOGO -->
+  <div class="logo logo--hero">
+    <!-- reuse the same SVG again -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="399" zoomAndPan="magnify" viewBox="0 0 299.25 68.999997" height="140" preserveAspectRatio="xMidYMid meet" version="1.0">
+<!-- …the same SVG again… -->
+</svg>
   </div>
 
-  <p class="tag">Grab-and-go ESL resources — always free, no log-ins, no paywalls.</p>
+  <p class="tagline">
+    Grab-and-go ESL resources — always free, no log-ins, no paywalls.
+  </p>
 
-  <div class="bar"></div>
-  <p class="tag" style="margin-top:1.5rem">We’ll be live soon…</p>
-
-  <footer>© <span id="year"></span> The Open Shelf</footer>
+  <div class="loader"><span></span></div>
+  <p class="coming-soon">We’ll be live soon…</p>
 </main>
 
-<!-- -----------------------------------------------------------------
-     Tiny bit of JS – restart the letter animation on every click
------------------------------------------------------------------- -->
-<script>
-document.getElementById('year').textContent = new Date().getFullYear();
+<footer>© 2025 The Open Shelf</footer>
 
-const logoTop = document.getElementById('logo-top');
-logoTop.addEventListener('click', e => {
-  e.preventDefault();
-  logoTop.classList.remove('animate');   // reset
-  void logoTop.offsetWidth;              // force reflow
-  logoTop.classList.add('animate');      // play
-});
+<script>
+/* click top-left logo to toggle full/short width */
+document.getElementById('logo-trigger')
+        .addEventListener('click',e=>{
+          e.preventDefault();
+          e.currentTarget.querySelector('.logo--small')
+                         .classList.toggle('reveal');
+        });
 </script>
 </body>
 </html>
