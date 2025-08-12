@@ -181,27 +181,16 @@
     }
    /* Respect users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  body { animation: none !important; }     /* stop gradient */
-  .loader::before {
-    animation: none !important;            /* stop shimmer */
-    left: 25%; right: auto; width: 50%;    /* show a calm, centered bar */
-  }
-}
-   /* Respect users who prefer reduced motion — global kill switch */
-@media (prefers-reduced-motion: reduce) {
-  /* stop all CSS animations/transitions */
+  /* stop all CSS-driven motion */
   *, *::before, *::after {
     animation: none !important;
     transition: none !important;
     scroll-behavior: auto !important;
   }
 
-  /* keep a calm loader stub visible */
-  .loader::before {
-    left: 25%;
-    right: auto;
-    width: 50%;
-  }
+  /* freeze the gradient & show a calm loader bar */
+  body { background-position: 0% 50% !important; }  /* optional, just sets a static frame */
+  .loader::before { left: 25%; right: auto; width: 50%; }
 }
   </style>
 </head>
