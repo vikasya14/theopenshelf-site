@@ -40,7 +40,7 @@
     }
     @keyframes grad{0%,100%{background-position:0% 50%} 50%{background-position:100% 50%}}
 
-    a{color:var(--white);}
+    a{color: currentColor; text-decoration: underline;}
 
     /* ===========================
        top-left SVG logo
@@ -91,7 +91,7 @@
   animation:load 2.4s cubic-bezier(.4,0,.2,1) infinite alternate;
 }
 @keyframes load {
-      0%{width:0} 50%{width:85%} 100%{width:0;transform:translateX(100%)}
+      0%{width:0} 50%{width:85%} 100%{width:-10%;transform:translateX(100%)}
     } 
     /* signup card */
     .card{
