@@ -36,6 +36,7 @@
 
 <!-- Optional tiny perf boost -->
 <link rel="preconnect" href="https://assets.mailerlite.com" crossorigin>
+<link rel="dns-prefetch" href="//assets.mailerlite.com">
 
   <style>
     /* ===========================
@@ -178,6 +179,14 @@
     @media (max-width:480px){
       .card{padding:22px}
     }
+   /* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  body { animation: none !important; }     /* stop gradient */
+  .loader::before {
+    animation: none !important;            /* stop shimmer */
+    left: 25%; right: auto; width: 50%;    /* show a calm, centered bar */
+  }
+}
   </style>
 </head>
 <body>
@@ -200,13 +209,7 @@
       <p class="sub">Join the launch list and we’ll email the pack the moment we go live.</p>
 
       <!-- MailerLite Universal -->
-      <script>
-        (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
-        .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
-        n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
-        (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
-        ml('account', '1727975');
-      </script>
+      
       <!-- Embedded form -->
       <div class="ml-embedded" data-form="mSxBw2"></div>
     </section>
@@ -249,5 +252,30 @@
       }, pieces.length*60 + 200);
     });
   </script>
+ <script>
+  // Lazy-load MailerLite when the form is near the viewport
+  function loadMailerLite(){
+    if (window.ml && window.ml.loaded) return;
+    (function(w,d,e,u,f,l,n){
+      w[f]=w[f]||function(){(w[f].q=w[f].q||[]).push(arguments);};
+      l=d.createElement(e); l.async=1; l.src=u;
+      l.onload=function(){ w.ml.loaded=true; };
+      n=d.getElementsByTagName(e)[0]; n.parentNode.insertBefore(l,n);
+    })(window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account','1727975');
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const target = document.querySelector('.ml-embedded');
+    if (!target) return;
+    if ('IntersectionObserver' in window){
+      new IntersectionObserver((entries, obs) => {
+        if (entries.some(e => e.isIntersecting)) { loadMailerLite(); obs.disconnect(); }
+      }, { rootMargin: '200px' }).observe(target);
+    } else {
+      (window.requestIdleCallback || setTimeout)(loadMailerLite, 1200);
+    }
+  });
+</script>
 </body>
 </html>
