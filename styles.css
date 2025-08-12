@@ -54,10 +54,17 @@
     width:150px;cursor:pointer;z-index:10;
   }
   /* make every instance of the SVG pure white */
-  #logo-top svg,
-  #logo-centre svg,
-  #logo-top path,
-  #logo-centre path      { fill:#fff !important }
+ #logo-top path,
+#logo-top rect,
+#logo-top polygon,
+#logo-top polyline,
+#logo-centre path,
+#logo-centre rect,
+#logo-centre polygon,
+#logo-centre polyline {
+  fill:#fff !important;
+  stroke:#fff !important; /* if you want strokes white too */
+}
   
   /* centred copy */
   #logo-centre{
