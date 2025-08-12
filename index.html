@@ -90,11 +90,9 @@
   background:#fff; border-radius:2px;
   animation:load 2.4s cubic-bezier(.4,0,.2,1) infinite alternate;
 }
-@keyframes load{
-  0%   { left:0;   right:100%; }  /* width 0, at left */
-  50%  { left:0;   right:15%;  }  /* width 85%, still anchored left */
-  100% { left:100%; right:0;   }  /* width 0, at right */
-}
+@keyframes load {
+      0%{width:0} 50%{width:85%} 100%{width:0;transform:translateX(100%)}
+    } 
     /* signup card */
     .card{
       width:min(70vw,600px);
