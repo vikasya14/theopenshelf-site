@@ -187,6 +187,22 @@
     left: 25%; right: auto; width: 50%;    /* show a calm, centered bar */
   }
 }
+   /* Respect users who prefer reduced motion — global kill switch */
+@media (prefers-reduced-motion: reduce) {
+  /* stop all CSS animations/transitions */
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* keep a calm loader stub visible */
+  .loader::before {
+    left: 25%;
+    right: auto;
+    width: 50%;
+  }
+}
   </style>
 </head>
 <body>
