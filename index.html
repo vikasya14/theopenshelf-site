@@ -47,9 +47,9 @@
        =========================== */
     .logo-small{
       position:fixed; top:16px; left:16px; z-index:10;
-      width:clamp(80px,20vw,160px);  /* unchanged width */
+      width:clamp(100px,30vw,200px);  /* unchanged width */
       transform-origin:top left;
-      transform:scale(1.12);          /* +~12% as requested */
+      transform:scale(1.2);          /* +~12% as requested */
       filter:drop-shadow(0 1px 3px rgba(0,0,0,.35));
       cursor:pointer;
     }
@@ -79,19 +79,20 @@
     }
 
     /* loader: clean left↔right “ping-pong” segment */
-    .loader{
-      position:relative;
-      width:360px; max-width:80vw; height:4px;
+    .loader {
+      width:320px; max-width:80vw; height:4px;
       background:rgba(255,255,255,.35);
-      border-radius:999px; overflow:hidden;
-      margin:.75rem auto 2rem;
+      overflow:hidden; margin:0 auto 1.75rem; position:relative;
     }
-    .loader::after{
-      content:""; position:absolute; inset:0 auto 0 0;
-      width:28%; background:#fff; border-radius:inherit;
-      animation:swipe 2.6s ease-in-out infinite alternate;
+    .loader::before {
+      content:""; position:absolute; left:0; top:0;
+      height:100%; width:0;
+      background:var(--brand-white);
+      animation:load 2.5s cubic-bezier(.4,0,.2,1) infinite;
     }
-    @keyframes swipe{from{left:0} to{left:calc(100% - 28%)}}
+    @keyframes load {
+      0%{width:0} 50%{width:85%} 100%{width:0;transform:translateX(100%)}
+    }
 
     /* signup card */
     .card{
@@ -114,13 +115,13 @@
 
     /* Center the MailerLite embed within the card */
     .card .ml-embedded{
-      width:100%;
+      width:70%;
       display:grid;
       justify-items:center;
     }
     .card :where(form,.ml-form-embedContainer,.ml-form-embedWrapper){
-      width:100%;
-      max-width:520px;
+      width:70%;
+      max-width:450px;
       margin-inline:auto !important;
     }
 
